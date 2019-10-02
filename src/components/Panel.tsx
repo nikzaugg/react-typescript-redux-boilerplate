@@ -2,15 +2,18 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch, bindActionCreators } from 'redux'
 
-import { AppState } from './store'
-import { ToggleState } from './store/toggle/types'
-import { CounterState } from './store/counter/types'
+import { AppState } from '../store'
+import { ToggleState } from '../store/toggle/types'
+import { CounterState } from '../store/counter/types'
 
-import { incrementCounter, decrementCounter } from './store/counter/actions'
-import { toggleVisibility } from './store/toggle/actions'
+import { incrementCounter, decrementCounter } from '../store/counter/actions'
+import { toggleVisibility } from '../store/toggle/actions'
 
-import { CounterActionTypes } from './store/counter/types'
-import { ToggleActionTypes } from './store/toggle/types'
+import { CounterActionTypes } from '../store/counter/types'
+import { ToggleActionTypes } from '../store/toggle/types'
+
+import { Button } from '../containers/Button'
+import { Segment } from '../containers/Segment'
 
 interface PanelProps {
   toggle: ToggleState
@@ -29,39 +32,31 @@ const Panel: React.FC<PanelProps> = ({
 }) => {
   return (
     <div style={{ display: 'flex', width: '70%', margin: 'auto' }}>
-      <div
-        style={{
-          width: '50%',
-          boxShadow: '5px 5px 10px #888888',
-          padding: '10px',
-          margin: '5px',
-        }}
-      >
+      <Segment raised={true}>
         <h3>
           <code>
             state: {'{'} counter: number {'}'}
           </code>
         </h3>
         <div>{counter.counter}</div>
-        <button onClick={incrementCounter}>+</button>
-        <button onClick={decrementCounter}>-</button>
-      </div>
-      <div
-        style={{
-          width: '50%',
-          boxShadow: '5px 5px 10px #888888',
-          padding: '10px',
-          margin: '5px',
-        }}
-      >
+        <Button color={'red'} onClick={decrementCounter}>
+          -
+        </Button>
+        <Button color={'blue'} onClick={incrementCounter}>
+          +
+        </Button>
+      </Segment>
+      <Segment raised={true}>
         <h3>
           <code>
             state: {'{'} showMessage: boolean {'}'}
           </code>
         </h3>
-        <button onClick={toggleVisibility}>Toggle</button>
+        <Button color={'green'} onClick={toggleVisibility}>
+          Toggle
+        </Button>
         {toggle.showMessage && <p>Toggled content</p>}
-      </div>
+      </Segment>
     </div>
   )
 }
